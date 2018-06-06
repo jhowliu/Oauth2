@@ -11,3 +11,8 @@ You need to add redirect_url(http://localhost:8999) to your platform first.
     3. Add `http://localhost:8999` to field of Site URL.
     4. Save Changes
     
+Instagram authentication with Node.js in server-side
+    
+    1. Add `http://localhost:8999/v1/instagram/callback` to `Valid redirect URIs`.
+    
+    Note: Request the access_token (Need POST with form-data)
