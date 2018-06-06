@@ -1,15 +1,21 @@
 import Express from 'express';
 import Settings from '../settings';
+import QueryString from 'querystring';
 
 import { access } from 'fs';
 import { makeRequest, makeFormData } from '../lib/httpUtils';
+import { settings } from 'cluster';
 
 const router = Express.Router()
 
 router.get('/connect', (req, res) => {
   const app_id = Settings.instagram.app_id;
-  const redirect_url = Settings.instagram.redirect_uri;
-  const oauth_url = `https://api.instagram.com/oauth/authorize/?client_id=${app_id}&redirect_uri=${redirect_url}&response_type=code`
+  const params = QueryString.stringify({
+    client_id: app_id,
+    response_type: `code`,
+    redirect_uri: Settings.instagram.redirect_uri
+  })
+  const oauth_url = `https://api.instagram.com/oauth/authorize/?${params}`
 
   res.json({'redirect_url': oauth_url});
 });
